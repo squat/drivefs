@@ -135,8 +135,8 @@ func (f *driveFile) Seek(offset int64, whence int) (int64, error) {
 
 	// This optimization lets us reuse the first bytes of a file,
 	// e.g. for determining file type, without initiating a second API call.
-	if f.position >= int64(len(f.head)) {
-		f.position = 0
+	if f.position <= int64(len(f.head)) {
+		f.position = offset
 		return f.position, nil
 	}
 
